@@ -2862,7 +2862,7 @@ extern int readblq(const char *file, const char *sta, double *odisp) {
             continue;
         for (p = name; (*p = (char) toupper((int) (*p))); p++)
             ;
-        if (strcmp(name, staname))
+        if (strncmp(name, staname,4))
             continue;
 
         /* read blq record */
