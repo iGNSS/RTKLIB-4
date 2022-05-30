@@ -2343,7 +2343,7 @@ static void outrnxobsf(FILE *fp, double obs, int lli) {
     }
 }
 /* search obsservattion data index -------------------------------------------*/
-static int obsindex(int rnxver, int sys, const uint8_t *code, const char *tobs, const char *mask) {
+static int obsindex(int rnxver, int sys, const code_t *code, const char *tobs, const char *mask) {
     char *id;
     int i;
 

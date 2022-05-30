@@ -28,7 +28,7 @@ static void read_filedir(char *filePath, char file[FILENUM][FILESIZE]) {
     if ((dir = opendir(filePath)) == NULL) {
         printf("opendir failed!");
     } else {
-        while (entry = readdir(dir)) {
+        while ((entry = readdir(dir))) {
             if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
                 continue;
             }
@@ -39,28 +39,6 @@ static void read_filedir(char *filePath, char file[FILENUM][FILESIZE]) {
             // printf("filename%d = %s\n", i, entry->d_name);
         }
     }
-}
-
-/**
- * substring [n,end)
- * @param str
- * @param n
- * @return
- */
-static char *substrend(const char *str, int n) {
-    int k        = 0;
-    char *substr = (char *) malloc(n + 1);
-    int length   = strlen(str);
-    if (n >= length) {
-        substr = str;
-        return substr;
-    }
-    for (int i = length - n; i < length; i++) {
-        substr[k] = str[i];
-        k++;
-    }
-    substr[k] = '\0';
-    return substr;
 }
 
 /**
@@ -154,8 +132,8 @@ extern void postInit(char *filepath) {
         if (strlen(file[i]) == 0) {
             break;
         }
-        char *substr  = substrend(file[i], 4);
-        char *substr2 = substrend(file[i], 1);
+        char *substr  = file[i]+strlen(file[i])-4;
+        char *substr2 =file[i]+strlen(file[i])-1;
         if (strcasecmp(substr, ".atx") == 0) {
             sprintf(filopt.satantp, "%s", file[i]); /* satellite antenna parameters file */
             sprintf(filopt.rcvantp, "%s", file[i]); /* receiver antenna parameters file */

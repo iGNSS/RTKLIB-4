@@ -290,76 +290,148 @@ extern "C" {
 #define FREQTYPE_L5 0x10  /* frequency type: E5ab */
 #define FREQTYPE_ALL 0xFF /* frequency type: all */
 
-#define CODE_NONE 0 /* obs code: none or unknown */
-#define CODE_L1C 1  /* obs code: L1C/A,G1C/A,E1C (GPS,GLO,GAL,QZS,SBS) */
-#define CODE_L1P 2  /* obs code: L1P,G1P,B1P (GPS,GLO,BDS) */
-#define CODE_L1W 3  /* obs code: L1 Z-track (GPS) */
-#define CODE_L1Y 4  /* obs code: L1Y        (GPS) */
-#define CODE_L1M 5  /* obs code: L1M        (GPS) */
-#define CODE_L1N 6  /* obs code: L1codeless,B1codeless (GPS,BDS) */
-#define CODE_L1S 7  /* obs code: L1C(D)     (GPS,QZS) */
-#define CODE_L1L 8  /* obs code: L1C(P)     (GPS,QZS) */
-#define CODE_L1E 9  /* (not used) */
-#define CODE_L1A 10 /* obs code: E1A,B1A    (GAL,BDS) */
-#define CODE_L1B 11 /* obs code: E1B        (GAL) */
-#define CODE_L1X 12 /* obs code: E1B+C,L1C(D+P),B1D+P (GAL,QZS,BDS) */
-#define CODE_L1Z 13 /* obs code: E1A+B+C,L1S (GAL,QZS) */
-#define CODE_L2C 14 /* obs code: L2C/A,G1C/A (GPS,GLO) */
-#define CODE_L2D 15 /* obs code: L2 L1C/A-(P2-P1) (GPS) */
-#define CODE_L2S 16 /* obs code: L2C(M)     (GPS,QZS) */
-#define CODE_L2L 17 /* obs code: L2C(L)     (GPS,QZS) */
-#define CODE_L2X 18 /* obs code: L2C(M+L),B1_2I+Q (GPS,QZS,BDS) */
-#define CODE_L2P 19 /* obs code: L2P,G2P    (GPS,GLO) */
-#define CODE_L2W 20 /* obs code: L2 Z-track (GPS) */
-#define CODE_L2Y 21 /* obs code: L2Y        (GPS) */
-#define CODE_L2M 22 /* obs code: L2M        (GPS) */
-#define CODE_L2N 23 /* obs code: L2codeless (GPS) */
-#define CODE_L5I 24 /* obs code: L5I,E5aI   (GPS,GAL,QZS,SBS) */
-#define CODE_L5Q 25 /* obs code: L5Q,E5aQ   (GPS,GAL,QZS,SBS) */
-#define CODE_L5X 26 /* obs code: L5I+Q,E5aI+Q,L5B+C,B2aD+P (GPS,GAL,QZS,IRN,SBS,BDS) */
-#define CODE_L7I 27 /* obs code: E5bI,B2bI  (GAL,BDS) */
-#define CODE_L7Q 28 /* obs code: E5bQ,B2bQ  (GAL,BDS) */
-#define CODE_L7X 29 /* obs code: E5bI+Q,B2bI+Q (GAL,BDS) */
-#define CODE_L6A 30 /* obs code: E6A,B3A    (GAL,BDS) */
-#define CODE_L6B 31 /* obs code: E6B        (GAL) */
-#define CODE_L6C 32 /* obs code: E6C        (GAL) */
-#define CODE_L6X 33 /* obs code: E6B+C,LEXS+L,B3I+Q (GAL,QZS,BDS) */
-#define CODE_L6Z 34 /* obs code: E6A+B+C,L6D+E (GAL,QZS) */
-#define CODE_L6S 35 /* obs code: L6S        (QZS) */
-#define CODE_L6L 36 /* obs code: L6L        (QZS) */
-#define CODE_L8I 37 /* obs code: E5abI      (GAL) */
-#define CODE_L8Q 38 /* obs code: E5abQ      (GAL) */
-#define CODE_L8X 39 /* obs code: E5abI+Q,B2abD+P (GAL,BDS) */
-#define CODE_L2I 40 /* obs code: B1_2I      (BDS) */
-#define CODE_L2Q 41 /* obs code: B1_2Q      (BDS) */
-#define CODE_L6I 42 /* obs code: B3I        (BDS) */
-#define CODE_L6Q 43 /* obs code: B3Q        (BDS) */
-#define CODE_L3I 44 /* obs code: G3I        (GLO) */
-#define CODE_L3Q 45 /* obs code: G3Q        (GLO) */
-#define CODE_L3X 46 /* obs code: G3I+Q      (GLO) */
-#define CODE_L1I 47 /* obs code: B1I        (BDS) (obsolute) */
-#define CODE_L1Q 48 /* obs code: B1Q        (BDS) (obsolute) */
-#define CODE_L5A 49 /* obs code: L5A SPS    (IRN) */
-#define CODE_L5B 50 /* obs code: L5B RS(D)  (IRN) */
-#define CODE_L5C 51 /* obs code: L5C RS(P)  (IRN) */
-#define CODE_L9A 52 /* obs code: SA SPS     (IRN) */
-#define CODE_L9B 53 /* obs code: SB RS(D)   (IRN) */
-#define CODE_L9C 54 /* obs code: SC RS(P)   (IRN) */
-#define CODE_L9X 55 /* obs code: SB+C       (IRN) */
-#define CODE_L1D 56 /* obs code: B1D        (BDS) */
-#define CODE_L5D 57 /* obs code: L5D(L5S),B2aD (QZS,BDS) */
-#define CODE_L5P 58 /* obs code: L5P(L5S),B2aP (QZS,BDS) */
-#define CODE_L5Z 59 /* obs code: L5D+P(L5S) (QZS) */
-#define CODE_L6E 60 /* obs code: L6E        (QZS) */
-#define CODE_L7D 61 /* obs code: B2bD       (BDS) */
-#define CODE_L7P 62 /* obs code: B2bP       (BDS) */
-#define CODE_L7Z 63 /* obs code: B2bD+P     (BDS) */
-#define CODE_L8D 64 /* obs code: B2abD      (BDS) */
-#define CODE_L8P 65 /* obs code: B2abP      (BDS) */
-#define CODE_L4A 66 /* obs code: G1aL1OCd   (GLO) */
-#define CODE_L4B 67 /* obs code: G1aL1OCd   (GLO) */
-#define CODE_L4X 68 /* obs code: G1al1OCd+p (GLO) */
+//#define CODE_NONE 0 /* obs code: none or unknown */
+//#define CODE_L1C 1  /* obs code: L1C/A,G1C/A,E1C (GPS,GLO,GAL,QZS,SBS) */
+//#define CODE_L1P 2  /* obs code: L1P,G1P,B1P (GPS,GLO,BDS) */
+//#define CODE_L1W 3  /* obs code: L1 Z-track (GPS) */
+//#define CODE_L1Y 4  /* obs code: L1Y        (GPS) */
+//#define CODE_L1M 5  /* obs code: L1M        (GPS) */
+//#define CODE_L1N 6  /* obs code: L1codeless,B1codeless (GPS,BDS) */
+//#define CODE_L1S 7  /* obs code: L1C(D)     (GPS,QZS) */
+//#define CODE_L1L 8  /* obs code: L1C(P)     (GPS,QZS) */
+//#define CODE_L1E 9  /* (not used) */
+//#define CODE_L1A 10 /* obs code: E1A,B1A    (GAL,BDS) */
+//#define CODE_L1B 11 /* obs code: E1B        (GAL) */
+//#define CODE_L1X 12 /* obs code: E1B+C,L1C(D+P),B1D+P (GAL,QZS,BDS) */
+//#define CODE_L1Z 13 /* obs code: E1A+B+C,L1S (GAL,QZS) */
+//#define CODE_L2C 14 /* obs code: L2C/A,G1C/A (GPS,GLO) */
+//#define CODE_L2D 15 /* obs code: L2 L1C/A-(P2-P1) (GPS) */
+//#define CODE_L2S 16 /* obs code: L2C(M)     (GPS,QZS) */
+//#define CODE_L2L 17 /* obs code: L2C(L)     (GPS,QZS) */
+//#define CODE_L2X 18 /* obs code: L2C(M+L),B1_2I+Q (GPS,QZS,BDS) */
+//#define CODE_L2P 19 /* obs code: L2P,G2P    (GPS,GLO) */
+//#define CODE_L2W 20 /* obs code: L2 Z-track (GPS) */
+//#define CODE_L2Y 21 /* obs code: L2Y        (GPS) */
+//#define CODE_L2M 22 /* obs code: L2M        (GPS) */
+//#define CODE_L2N 23 /* obs code: L2codeless (GPS) */
+//#define CODE_L5I 24 /* obs code: L5I,E5aI   (GPS,GAL,QZS,SBS) */
+//#define CODE_L5Q 25 /* obs code: L5Q,E5aQ   (GPS,GAL,QZS,SBS) */
+//#define CODE_L5X 26 /* obs code: L5I+Q,E5aI+Q,L5B+C,B2aD+P (GPS,GAL,QZS,IRN,SBS,BDS) */
+//#define CODE_L7I 27 /* obs code: E5bI,B2bI  (GAL,BDS) */
+//#define CODE_L7Q 28 /* obs code: E5bQ,B2bQ  (GAL,BDS) */
+//#define CODE_L7X 29 /* obs code: E5bI+Q,B2bI+Q (GAL,BDS) */
+//#define CODE_L6A 30 /* obs code: E6A,B3A    (GAL,BDS) */
+//#define CODE_L6B 31 /* obs code: E6B        (GAL) */
+//#define CODE_L6C 32 /* obs code: E6C        (GAL) */
+//#define CODE_L6X 33 /* obs code: E6B+C,LEXS+L,B3I+Q (GAL,QZS,BDS) */
+//#define CODE_L6Z 34 /* obs code: E6A+B+C,L6D+E (GAL,QZS) */
+//#define CODE_L6S 35 /* obs code: L6S        (QZS) */
+//#define CODE_L6L 36 /* obs code: L6L        (QZS) */
+//#define CODE_L8I 37 /* obs code: E5abI      (GAL) */
+//#define CODE_L8Q 38 /* obs code: E5abQ      (GAL) */
+//#define CODE_L8X 39 /* obs code: E5abI+Q,B2abD+P (GAL,BDS) */
+//#define CODE_L2I 40 /* obs code: B1_2I      (BDS) */
+//#define CODE_L2Q 41 /* obs code: B1_2Q      (BDS) */
+//#define CODE_L6I 42 /* obs code: B3I        (BDS) */
+//#define CODE_L6Q 43 /* obs code: B3Q        (BDS) */
+//#define CODE_L3I 44 /* obs code: G3I        (GLO) */
+//#define CODE_L3Q 45 /* obs code: G3Q        (GLO) */
+//#define CODE_L3X 46 /* obs code: G3I+Q      (GLO) */
+//#define CODE_L1I 47 /* obs code: B1I        (BDS) (obsolute) */
+//#define CODE_L1Q 48 /* obs code: B1Q        (BDS) (obsolute) */
+//#define CODE_L5A 49 /* obs code: L5A SPS    (IRN) */
+//#define CODE_L5B 50 /* obs code: L5B RS(D)  (IRN) */
+//#define CODE_L5C 51 /* obs code: L5C RS(P)  (IRN) */
+//#define CODE_L9A 52 /* obs code: SA SPS     (IRN) */
+//#define CODE_L9B 53 /* obs code: SB RS(D)   (IRN) */
+//#define CODE_L9C 54 /* obs code: SC RS(P)   (IRN) */
+//#define CODE_L9X 55 /* obs code: SB+C       (IRN) */
+//#define CODE_L1D 56 /* obs code: B1D        (BDS) */
+//#define CODE_L5D 57 /* obs code: L5D(L5S),B2aD (QZS,BDS) */
+//#define CODE_L5P 58 /* obs code: L5P(L5S),B2aP (QZS,BDS) */
+//#define CODE_L5Z 59 /* obs code: L5D+P(L5S) (QZS) */
+//#define CODE_L6E 60 /* obs code: L6E        (QZS) */
+//#define CODE_L7D 61 /* obs code: B2bD       (BDS) */
+//#define CODE_L7P 62 /* obs code: B2bP       (BDS) */
+//#define CODE_L7Z 63 /* obs code: B2bD+P     (BDS) */
+//#define CODE_L8D 64 /* obs code: B2abD      (BDS) */
+//#define CODE_L8P 65 /* obs code: B2abP      (BDS) */
+//#define CODE_L4A 66 /* obs code: G1aL1OCd   (GLO) */
+//#define CODE_L4B 67 /* obs code: G1aL1OCd   (GLO) */
+//#define CODE_L4X 68 /* obs code: G1al1OCd+p (GLO) */
 #define MAXCODE 68  /* max number of obs code */
+
+typedef enum {
+    CODE_NONE= 0,
+    CODE_L1C =1 ,
+    CODE_L1P =2 ,
+    CODE_L1W =3 ,
+    CODE_L1Y =4 ,
+    CODE_L1M =5 ,
+    CODE_L1N =6 ,
+    CODE_L1S =7 ,
+    CODE_L1L =8 ,
+    CODE_L1E =9 ,
+    CODE_L1A =10,
+    CODE_L1B =11,
+    CODE_L1X =12,
+    CODE_L1Z =13,
+    CODE_L2C =14,
+    CODE_L2D =15,
+    CODE_L2S =16,
+    CODE_L2L =17,
+    CODE_L2X =18,
+    CODE_L2P =19,
+    CODE_L2W =20,
+    CODE_L2Y =21,
+    CODE_L2M =22,
+    CODE_L2N =23,
+    CODE_L5I =24,
+    CODE_L5Q =25,
+    CODE_L5X =26,
+    CODE_L7I =27,
+    CODE_L7Q =28,
+    CODE_L7X =29,
+    CODE_L6A =30,
+    CODE_L6B =31,
+    CODE_L6C =32,
+    CODE_L6X =33,
+    CODE_L6Z =34,
+    CODE_L6S =35,
+    CODE_L6L =36,
+    CODE_L8I =37,
+    CODE_L8Q =38,
+    CODE_L8X =39,
+    CODE_L2I =40,
+    CODE_L2Q =41,
+    CODE_L6I =42,
+    CODE_L6Q =43,
+    CODE_L3I =44,
+    CODE_L3Q =45,
+    CODE_L3X =46,
+    CODE_L1I =47,
+    CODE_L1Q =48,
+    CODE_L5A =49,
+    CODE_L5B =50,
+    CODE_L5C =51,
+    CODE_L9A =52,
+    CODE_L9B =53,
+    CODE_L9C =54,
+    CODE_L9X =55,
+    CODE_L1D =56,
+    CODE_L5D =57,
+    CODE_L5P =58,
+    CODE_L5Z =59,
+    CODE_L6E =60,
+    CODE_L7D =61,
+    CODE_L7P =62,
+    CODE_L7Z =63,
+    CODE_L8D =64,
+    CODE_L8P =65,
+    CODE_L4A =66,
+    CODE_L4B =67,
+    CODE_L4X =68
+} code_t;
 
 #define PMODE_SINGLE 0     /* positioning mode: single */
 #define PMODE_DGPS 1       /* positioning mode: DGPS/DGNSS */
@@ -544,7 +616,7 @@ typedef struct {                  /* observation data record */
     uint8_t sat, rcv;             /* satellite/receiver number */
     uint16_t SNR[NFREQ + NEXOBS]; /* signal strength (0.001 dBHz) */
     uint8_t LLI[NFREQ + NEXOBS];  /* loss of lock indicator */
-    uint8_t code[NFREQ + NEXOBS]; /* code indicator (CODE_???) */
+    code_t code[NFREQ + NEXOBS]; /* code indicator (CODE_???) */
     double L[NFREQ + NEXOBS];     /* observation data carrier-phase (cycle) */
     double P[NFREQ + NEXOBS];     /* observation data pseudorange (m) */
     float D[NFREQ + NEXOBS];      /* observation data doppler frequency (Hz) */
