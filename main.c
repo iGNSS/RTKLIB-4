@@ -127,7 +127,7 @@ extern void postInit(char *filepath) {
         " ",        ""             /* separator/program name */
     };
     // 文件参数
-    filopt_t filopt = {"", "", "", "", "", "", "", "", "", "", "", ""};
+    filopt_t filopt = {"", "", "", "", "", "", "", "", "", "", "", "",""};
     for (i = 0; i < FILENUM; i++) {
         if (strlen(file[i]) == 0) {
             break;
@@ -144,6 +144,9 @@ extern void postInit(char *filepath) {
         } else if (strcasecmp(substr, ".BSX") == 0) {
             sprintf(filopt.dcb, "%s", file[i]); /* dcb data file */
             continue;
+        } else if (strcasecmp(substr, ".BIA") == 0) {
+            sprintf(filopt.bia, "%s", file[i]); /* dcb data file */
+            continue;
         } else if (strcasecmp(substr, ".erp") == 0) {
             sprintf(filopt.eop, "%s", file[i]); /* eop data file */
             continue;
@@ -158,8 +161,6 @@ extern void postInit(char *filepath) {
             strcpy(proname, file[i]);
         }
         infile[n] = file[i];
-        free(substr);
-        free(substr2);
         n += 1;
     }
 

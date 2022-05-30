@@ -1129,6 +1129,8 @@ typedef struct {              /* file options type */
     char geexe[MAXSTRPATH];   /* google earth exec file */
     char solstat[MAXSTRPATH]; /* solution statistics file */
     char trace[MAXSTRPATH];   /* debug trace file */
+
+    char bia [MAXSTRPATH]; /* bia data file */
 } filopt_t;
 
 typedef struct {                  /* RINEX options type */
