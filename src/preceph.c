@@ -82,7 +82,7 @@ static int readsp3h(FILE *fp, gtime_t *time, char *type, int *sats, double *bfac
     char buff[1024];
 
     trace(3, "readsp3h:\n");
-
+    tsys[0]='\0';
     for (i = 0;; i++) {
         if (!fgets(buff, sizeof(buff), fp))
             break;
@@ -103,7 +103,7 @@ static int readsp3h(FILE *fp, gtime_t *time, char *type, int *sats, double *bfac
             }
         } else if (!strncmp(buff, "++", 2)) { /* orbit accuracy */
             continue;
-        } else if (!strncmp(buff, "%c", 2)) { /* time system */
+        } else if (!strncmp(buff, "%c", 2) && tsys[0]=='\0') { /* time system */
             strncpy(tsys, buff + 9, 3);
             tsys[3] = '\0';
         } else if (!strncmp(buff, "%f", 2) && bfact[0] == 0.0) { /* fp base number */

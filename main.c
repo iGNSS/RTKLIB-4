@@ -144,7 +144,7 @@ extern void postInit(char *filepath) {
         1,          1,          1, 0,
         0,          0,          0, /* degf,outhead,outopt,outvel,datum,height,geoid
                                     */
-        0,          2,          3, /* solstatic,sstat,trace */
+        0,          2,          5, /* solstatic,sstat,trace */
         {0.0, 0.0},                /* nmeaintv */
         " ",        ""             /* separator/program name */
     };
@@ -154,32 +154,32 @@ extern void postInit(char *filepath) {
         if (strlen(file[i]) == 0) {
             break;
         }
-        char *substr  = substrend(*(file + i), 4);
-        char *substr2 = substrend(*(file + i), 1);
+        char *substr  = substrend(file[i], 4);
+        char *substr2 = substrend(file[i], 1);
         if (strcasecmp(substr, ".atx") == 0) {
-            sprintf(filopt.satantp, "%s", *(file + i)); /* satellite antenna parameters file */
-            sprintf(filopt.rcvantp, "%s", *(file + i)); /* receiver antenna parameters file */
+            sprintf(filopt.satantp, "%s", file[i]); /* satellite antenna parameters file */
+            sprintf(filopt.rcvantp, "%s", file[i]); /* receiver antenna parameters file */
             continue;
         } else if (strcasecmp(substr, ".snx") == 0) {
-            sprintf(filopt.stapos, "%s", *(file + i)); /* station positions file */
+            sprintf(filopt.stapos, "%s", file[i]); /* station positions file */
             continue;
         } else if (strcasecmp(substr, ".BSX") == 0) {
-            sprintf(filopt.dcb, "%s", *(file + i)); /* dcb data file */
+            sprintf(filopt.dcb, "%s", file[i]); /* dcb data file */
             continue;
         } else if (strcasecmp(substr, ".erp") == 0) {
-            sprintf(filopt.eop, "%s", *(file + i)); /* eop data file */
+            sprintf(filopt.eop, "%s", file[i]); /* eop data file */
             continue;
         } else if (strcasecmp(substr, ".blq") == 0) {
-            sprintf(filopt.blq, "%s", *(file + i)); /* ocean tide loading blq file */
+            sprintf(filopt.blq, "%s", file[i]); /* ocean tide loading blq file */
             continue;
         } else if (strcasecmp(substr2, "i") == 0) {
-            sprintf(filopt.iono, "%s", *(file + i)); /* ionex file */
+            sprintf(filopt.iono, "%s", file[i]); /* ionex file */
             continue;
         } else if (strcasecmp(substr2, "o") == 0 || strcmp(substr2, "O") == 0) {
-            addchar(*(file + i), outfile, "pos");
+            addchar(file[i], outfile, "pos");
             strcpy(proname, file[i]);
         }
-        infile[n] = *(file + i);
+        infile[n] = file[i];
         free(substr);
         free(substr2);
         n += 1;

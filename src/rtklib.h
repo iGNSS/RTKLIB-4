@@ -62,6 +62,7 @@ extern "C" {
 #define ENACMP
 #define ENAIRN
 #define TRACE
+#define NFREQ 5
 
 #define VER_RTKLIB "2.4.3" /* library version */
 
