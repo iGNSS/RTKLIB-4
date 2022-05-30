@@ -1,0 +1,21 @@
+*.o
+*.d
+*.obs
+*.ini
+*.local
+Release
+Release_Build
+Debug
+Debug_Build
+__history
+__astcache
+cmake-build-debug
+# 项目排除路径
+/app/
+/bin/
+/data/
+/doc/
+/lib/
+/test/
+/testdata/
+/util/
