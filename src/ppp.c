@@ -1083,6 +1083,10 @@ static void update_stat(rtk_t *rtk, const obsd_t *obs, int n, int stat) {
     }
     rtk->sol.dtr[0] = rtk->x[IC(0, opt)];
     rtk->sol.dtr[1] = rtk->x[IC(1, opt)] - rtk->x[IC(0, opt)];
+    rtk->sol.dtr[2] = rtk->x[IC(2, opt)] - rtk->x[IC(0, opt)];
+    rtk->sol.dtr[3] = rtk->x[IC(3, opt)] - rtk->x[IC(0, opt)];
+    rtk->sol.dtr[4] = rtk->x[IC(4, opt)] - rtk->x[IC(0, opt)];
+    rtk->sol.dtr[5] = rtk->x[IC(5, opt)] - rtk->x[IC(0, opt)];
 
     for (i = 0; i < n && i < MAXOBS; i++)
         for (j = 0; j < opt->nf; j++) {
