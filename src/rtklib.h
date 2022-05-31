@@ -464,27 +464,52 @@ typedef enum {
 #define TIMES_UTC 1  /* time system: utc */
 #define TIMES_JST 2  /* time system: jst */
 
-#define IONOOPT_OFF 0  /* ionosphere option: correction off */
-#define IONOOPT_BRDC 1 /* ionosphere option: broadcast model */
-#define IONOOPT_SBAS 2 /* ionosphere option: SBAS model */
-#define IONOOPT_IFLC 3 /* ionosphere option: L1/L2 iono-free LC */
-#define IONOOPT_EST 4  /* ionosphere option: estimation */
-#define IONOOPT_TEC 5  /* ionosphere option: IONEX TEC model */
-#define IONOOPT_QZS 6  /* ionosphere option: QZSS broadcast model */
-#define IONOOPT_STEC 8 /* ionosphere option: SLANT TEC model */
+//#define IONOOPT_OFF 0  /* ionosphere option: correction off */
+//#define IONOOPT_BRDC 1 /* ionosphere option: broadcast model */
+//#define IONOOPT_SBAS 2 /* ionosphere option: SBAS model */
+//#define IONOOPT_IFLC 3 /* ionosphere option: L1/L2 iono-free LC */
+//#define IONOOPT_EST 4  /* ionosphere option: estimation */
+//#define IONOOPT_TEC 5  /* ionosphere option: IONEX TEC model */
+//#define IONOOPT_QZS 6  /* ionosphere option: QZSS broadcast model */
+//#define IONOOPT_STEC 8 /* ionosphere option: SLANT TEC model */
+typedef enum {
+    IONOOPT_OFF =0 ,
+    IONOOPT_BRDC= 1,
+    IONOOPT_SBAS= 2,
+    IONOOPT_IFLC= 3,
+    IONOOPT_EST =4 ,
+    IONOOPT_TEC =5 ,
+    IONOOPT_QZS =6 ,
+    IONOOPT_STEC=8
+}ionoopt_t;
 
-#define TROPOPT_OFF 0  /* troposphere option: correction off */
-#define TROPOPT_SAAS 1 /* troposphere option: Saastamoinen model */
-#define TROPOPT_SBAS 2 /* troposphere option: SBAS model */
-#define TROPOPT_EST 3  /* troposphere option: ZTD estimation */
-#define TROPOPT_ESTG 4 /* troposphere option: ZTD+grad estimation */
-#define TROPOPT_ZTD 5  /* troposphere option: ZTD correction */
+//#define TROPOPT_OFF 0  /* troposphere option: correction off */
+//#define TROPOPT_SAAS 1 /* troposphere option: Saastamoinen model */
+//#define TROPOPT_SBAS 2 /* troposphere option: SBAS model */
+//#define TROPOPT_EST 3  /* troposphere option: ZTD estimation */
+//#define TROPOPT_ESTG 4 /* troposphere option: ZTD+grad estimation */
+//#define TROPOPT_ZTD 5  /* troposphere option: ZTD correction */
+typedef enum {
+    TROPOPT_OFF =0 ,
+    TROPOPT_SAAS =1,
+    TROPOPT_SBAS= 2,
+    TROPOPT_EST =3 ,
+    TROPOPT_ESTG =4,
+    TROPOPT_ZTD= 5
+}tropopt_t;
 
-#define EPHOPT_BRDC 0   /* ephemeris option: broadcast ephemeris */
-#define EPHOPT_PREC 1   /* ephemeris option: precise ephemeris */
-#define EPHOPT_SBAS 2   /* ephemeris option: broadcast + SBAS */
-#define EPHOPT_SSRAPC 3 /* ephemeris option: broadcast + SSR_APC */
-#define EPHOPT_SSRCOM 4 /* ephemeris option: broadcast + SSR_COM */
+//#define EPHOPT_BRDC 0   /* ephemeris option: broadcast ephemeris */
+//#define EPHOPT_PREC 1   /* ephemeris option: precise ephemeris */
+//#define EPHOPT_SBAS 2   /* ephemeris option: broadcast + SBAS */
+//#define EPHOPT_SSRAPC 3 /* ephemeris option: broadcast + SSR_APC */
+//#define EPHOPT_SSRCOM 4 /* ephemeris option: broadcast + SSR_COM */
+typedef enum{
+    EPHOPT_BRDC= 0 ,
+    EPHOPT_PREC= 1 ,
+    EPHOPT_SBAS= 2 ,
+    EPHOPT_SSRAPC =3,
+    EPHOPT_SSRCOM =4
+}ephopt_t;
 
 #define ARMODE_OFF 0     /* AR mode: off */
 #define ARMODE_CONT 1    /* AR mode: continuous */
@@ -1040,7 +1065,7 @@ typedef struct {             /* processing options type */
     int navsys;              /* navigation system */
     double elmin;            /* elevation mask angle (rad) */
     snrmask_t snrmask;       /* SNR mask */
-    int sateph;              /* satellite ephemeris/clock (EPHOPT_???) */
+    ephopt_t sateph;              /* satellite ephemeris/clock (EPHOPT_???) */
     int modear;              /* AR mode (0:off,1:continuous,2:instantaneous,3:fix and hold,4:ppp-ar) */
     int glomodear;           /* GLONASS AR mode (0:off,1:on,2:auto cal,3:ext cal) */
     int bdsmodear;           /* BeiDou AR mode (0:off,1:on) */
@@ -1048,8 +1073,8 @@ typedef struct {             /* processing options type */
     int minlock;             /* min lock count to fix ambiguity */
     int minfix;              /* min fix count to hold ambiguity */
     int armaxiter;           /* max iteration to resolve ambiguity */
-    int ionoopt;             /* ionosphere option (IONOOPT_???) */
-    int tropopt;             /* troposphere option (TROPOPT_???) */
+    ionoopt_t ionoopt;             /* ionosphere option (IONOOPT_???) */
+    tropopt_t tropopt;             /* troposphere option (TROPOPT_???) */
     int dynamics;            /* dynamics model (0:none,1:velociy,2:accel) */
     int tidecorr;            /* earth tide correction (0:off,1:solid,2:solid+otl+pole) */
     int niter;               /* number of filter iteration */
