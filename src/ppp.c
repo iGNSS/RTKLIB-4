@@ -600,7 +600,8 @@ static void udtrop_ppp(rtk_t *rtk) {
 
     if (rtk->x[i] == 0.0) {
         ecef2pos(rtk->sol.rr, pos);
-        ztd = sbstropcorr(rtk->sol.time, pos, azel, &var);
+//        ztd = sbstropcorr(rtk->sol.time, pos, azel, &var);
+        tropcorr(rtk->sol.time,NULL, pos, azel,rtk->opt.tropopt,&ztd, &var);
         initx(rtk, ztd, var, i);
 
         if (rtk->opt.tropopt >= TROPOPT_ESTG) {
