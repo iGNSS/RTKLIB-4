@@ -454,7 +454,7 @@ static int estpos(const obsd_t *obs, int n, const double *rs, const double *dts,
     free(var);
     return 0;
 }
-/* RAIM FDE (failure detection and exclution) -------------------------------*/
+/* RAIM FDE (failure detection and exclusion) -------------------------------*/
 static int raim_fde(const obsd_t *obs, int n, const double *rs, const double *dts, const double *vare, const int *svh, const nav_t *nav,
                     const prcopt_t *opt, sol_t *sol, double *azel, int *vsat, double *resp, char *msg) {
     obsd_t *obs_e;
