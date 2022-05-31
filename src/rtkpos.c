@@ -1850,7 +1850,7 @@ extern int rtkpos(rtk_t *rtk, const obsd_t *obs, int n, const nav_t *nav) {
     trace(4, "obs=\n");
     traceobs(4, obs, n);
 
-    /* set base staion position */
+    /* set base station position */
     if (opt->refpos <= POSOPT_RINEX && opt->mode != PMODE_SINGLE && opt->mode != PMODE_MOVEB) {
         for (i = 0; i < 6; i++)
             rtk->rb[i] = i < 3 ? opt->rb[i] : 0.0;

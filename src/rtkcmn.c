@@ -1447,11 +1447,11 @@ extern int solve(const char *tr, const double *A, const double *Y, int n, int m,
  * args   : double *A        I   transpose of (weighted) design matrix (n x m)
  *          double *y        I   (weighted) measurements (m x 1)
  *          int    n,m       I   number of parameters and measurements (n<=m)
- *          double *x        O   estmated parameters (n x 1)
- *          double *Q        O   esimated parameters covariance matrix (n x n)
+ *          double *x        O   estimated parameters (n x 1)
+ *          double *Q        O   estimated parameters covariance matrix (n x n)
  * return : status (0:ok,0>:error)
  * notes  : for weighted least square, replace A and y by A*w and w*y (w=W^(1/2))
- *          matirix stored by column-major order (fortran convention)
+ *          matrix stored by column-major order (fortran convention)
  *-----------------------------------------------------------------------------*/
 extern int lsq(const double *A, const double *y, int n, int m, double *x, double *Q) {
     double *Ay;
