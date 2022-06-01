@@ -7,7 +7,7 @@
  * history : 2007/01/12 1.0  new
  *           2007/03/13 1.1  add slip detection by LLI flag
  *           2007/04/18 1.2  add antenna pcv correction
- *                           change rtkpos argin
+ *                           change rtkpos margin
  *           2008/07/18 1.3  refactored
  *           2009/01/02 1.4  modify rtk positioning api
  *           2009/03/09 1.5  support glonass, gallileo and qzs
@@ -24,13 +24,13 @@
  *           2010/09/07 1.10 add elevation mask to hold ambiguity
  *           2012/02/01 1.11 add extended receiver error model
  *                           add glonass interchannel bias correction
- *                           add slip detectior by L1-L5 gf jump
+ *                           add slip detector by L1-L5 gf jump
  *                           output snr of rover receiver in residuals
  *           2013/03/10 1.12 add otl and pole tides corrections
  *           2014/05/26 1.13 support beidou and galileo
  *                           add output of gal-gps and bds-gps time offset
  *           2014/05/28 1.14 fix bug on memory exception with many sys and freq
- *           2014/08/26 1.15 add functino to swap sol-stat file with keywords
+ *           2014/08/26 1.15 add function to swap sol-stat file with keywords
  *           2014/10/21 1.16 fix bug on beidou amb-res with pos2-bdsarmode=0
  *           2014/11/08 1.17 fix bug on ar-degradation by unhealthy satellites
  *           2015/03/23 1.18 residuals referenced to reference satellite
@@ -100,7 +100,7 @@ static gtime_t time_stat    = {0};  /* rtk status file time */
  * args   : char     *file   I   rtk status file
  *          int      level   I   rtk status level (0: off)
  * return : status (1:ok,0:error)
- * notes  : file can constain time keywords (%Y,%y,%m...) defined in reppath().
+ * notes  : file can contain time keywords (%Y,%y,%m...) defined in reppath().
  *          The time to replace keywords is based on UTC of CPU time.
  * output : solution status file record format
  *
@@ -452,13 +452,13 @@ static void udpos(rtk_t *rtk, double tt) {
     if (rtk->opt.mode == PMODE_STATIC)
         return;
 
-    /* kinmatic mode without dynamics */
+    /* kinematic mode without dynamics */
     if (!rtk->opt.dynamics) {
         for (i = 0; i < 3; i++)
             initx(rtk, rtk->sol.rr[i], VAR_POS, i);
         return;
     }
-    /* check variance of estimated postion */
+    /* check variance of estimated position */
     for (i = 0; i < 3; i++)
         var += rtk->P[i + i * rtk->nx];
     var /= 3.0;
@@ -788,7 +788,7 @@ static void udbias(rtk_t *rtk, double tt, const obsd_t *obs, const int *sat, con
                 j++;
             }
         }
-        /* correct phase-bias offset to enssure phase-code coherency */
+        /* correct phase-bias offset to ensure phase-code coherency */
         if (j > 0) {
             for (i = 1; i <= MAXSAT; i++) {
                 if (rtk->x[IB(i, k, &rtk->opt)] != 0.0)
@@ -1001,7 +1001,7 @@ static int constbl(rtk_t *rtk, const double *x, const double *P, double *v, doub
 
     return 1;
 }
-/* precise tropspheric model -------------------------------------------------*/
+/* precise tropospheric model -------------------------------------------------*/
 static double prectrop(gtime_t time, const double *pos, int r, const double *azel, const prcopt_t *opt, const double *x, double *dtdx) {
     double m_w = 0.0, cotz, grad_n, grad_e;
     int i      = IT(r, opt);
@@ -1791,7 +1791,7 @@ extern void rtkfree(rtk_t *rtk) {
  *                               (I:fixed mode,O:single mode)
  *                .dtr[0]    O   receiver clock bias (s)
  *                .dtr[1-5]  O   receiver GLO/GAL/BDS/IRN/QZS-GPS time offset (s)
- *                .Qr[]      O   rover position covarinace
+ *                .Qr[]      O   rover position covariance
  *                .stat      O   solution status (SOLQ_???)
  *                .ns        O   number of valid satellites
  *                .age       O   age of differential (s)
@@ -1813,7 +1813,7 @@ extern void rtkfree(rtk_t *rtk) {
  *                .vs   [r]  O   data valid single     (r=0:rover,1:base)
  *                .resp [f]  O   freq(f+1) pseudorange residual (m)
  *                .resc [f]  O   freq(f+1) carrier-phase residual (m)
- *                .vsat [f]  O   freq(f+1) data vaild (0:invalid,1:valid)
+ *                .vsat [f]  O   freq(f+1) data valid (0:invalid,1:valid)
  *                .fix  [f]  O   freq(f+1) ambiguity flag
  *                               (0:nodata,1:float,2:fix,3:hold)
  *                .slip [f]  O   freq(f+1) cycle slip flag
@@ -1832,7 +1832,7 @@ extern void rtkfree(rtk_t *rtk) {
  *            rtk->opt       I   processing options
  *          obsd_t *obs      I   observation data for an epoch
  *                               obs[i].rcv=1:rover,2:reference
- *                               sorted by receiver and satellte
+ *                               sorted by receiver and satellite
  *          int    n         I   number of observation data
  *          nav_t  *nav      I   navigation messages
  * return : status (0:no solution,1:valid solution)
@@ -1924,7 +1924,7 @@ extern int rtkpos(rtk_t *rtk, const obsd_t *obs, int n, const nav_t *nav) {
             return 1;
         }
     }
-    /* relative potitioning */
+    /* relative positioning */
     relpos(rtk, obs, nu, nr, nav);
     outsolstat(rtk);
 

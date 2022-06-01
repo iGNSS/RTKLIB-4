@@ -377,6 +377,8 @@ static void procpos(FILE *fp, const prcopt_t *popt, const solopt_t *sopt, int mo
         if (!strstr(popt->pppopt, "-ENA_FCB")) {
             corr_phase_bias_ssr(obs, n, &navs);
         }
+        //TODO add BDS2 code bias correction here
+        //TODO add OSB correction here
         /* init pos */
         if (norm(rtk.sol.rr, 3) == 0.0) {
             memcpy(rtk.sol.rr, stas[0].pos, 3 * sizeof(double));
