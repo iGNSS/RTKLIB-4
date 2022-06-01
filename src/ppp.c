@@ -75,16 +75,16 @@
 
 #define THRES_MW_JUMP 10.0
 
-#define VAR_POS SQR(60.0)    /* init variance receiver position (m^2) */
-#define VAR_VEL SQR(10.0)    /* init variance of receiver vel ((m/s)^2) */
-#define VAR_ACC SQR(10.0)    /* init variance of receiver acc ((m/ss)^2) */
-#define VAR_CLK SQR(60.0)    /* init variance receiver clock (m^2) */
-#define VAR_ZTD SQR(0.6)     /* init variance ztd (m^2) */
-#define VAR_GRA SQR(0.01)    /* init variance gradient (m^2) */
-#define VAR_DCB SQR(30.0)    /* init variance dcb (m^2) */
-#define VAR_BIAS SQR(60.0)   /* init variance phase-bias (m^2) */
-#define VAR_IONO SQR(60.0)   /* init variance iono-delay */
-#define VAR_GLO_IFB SQR(0.6) /* variance of glonass ifb */
+//#define VAR_POS SQR(60.0)    /* init variance receiver position (m^2) */
+//#define VAR_VEL SQR(10.0)    /* init variance of receiver vel ((m/s)^2) */
+//#define VAR_ACC SQR(10.0)    /* init variance of receiver acc ((m/ss)^2) */
+//#define VAR_CLK SQR(60.0)    /* init variance receiver clock (m^2) */
+//#define VAR_ZTD SQR(0.6)     /* init variance ztd (m^2) */
+//#define VAR_GRA SQR(0.01)    /* init variance gradient (m^2) */
+//#define VAR_DCB SQR(30.0)    /* init variance dcb (m^2) */
+//#define VAR_BIAS SQR(60.0)   /* init variance phase-bias (m^2) */
+//#define VAR_IONO SQR(60.0)   /* init variance iono-delay */
+//#define VAR_GLO_IFB SQR(0.6) /* variance of glonass ifb */
 
 #define ERR_SAAS 0.3   /* saastamoinen model error std (m) */
 #define ERR_BRDCI 0.5  /* broadcast iono model error factor */
@@ -494,12 +494,12 @@ static void udpos_ppp(rtk_t *rtk) {
     /* initialize position for first epoch */
     if (norm(rtk->x, 3) <= 0.0) {
         for (i = 0; i < 3; i++)
-            initx(rtk, rtk->sol.rr[i], VAR_POS, i);
+            initx(rtk, rtk->sol.rr[i], SQR(rtk->opt.std[5]), i);
         if (rtk->opt.dynamics) {
             for (i = 3; i < 6; i++)
-                initx(rtk, rtk->sol.rr[i], VAR_VEL, i);
+                initx(rtk, rtk->sol.rr[i], SQR(rtk->opt.std[4]), i);
             for (i = 6; i < 9; i++)
-                initx(rtk, 1E-6, VAR_ACC, i);
+                initx(rtk, 1E-6, SQR(rtk->opt.std[3]), i);
         }
     }
     /* static ppp mode */
@@ -512,7 +512,7 @@ static void udpos_ppp(rtk_t *rtk) {
     /* kinematic mode without dynamics */
     if (!rtk->opt.dynamics) {
         for (i = 0; i < 3; i++) {
-            initx(rtk, rtk->sol.rr[i], VAR_POS, i);
+            initx(rtk, rtk->sol.rr[i], SQR(rtk->opt.std[5]), i);
         }
         return;
     }
@@ -588,7 +588,7 @@ static void udclk_ppp(rtk_t *rtk) {
         } else {
             dtr = i == 0 ? rtk->sol.dtr[0] : rtk->sol.dtr[0] + rtk->sol.dtr[i];
         }
-        initx(rtk, CLIGHT * dtr, VAR_CLK, IC(i, &rtk->opt));
+        initx(rtk, CLIGHT * dtr, SQR(rtk->opt.std[6]), IC(i, &rtk->opt));
     }
 }
 /* temporal update of tropospheric parameters --------------------------------*/
@@ -606,7 +606,7 @@ static void udtrop_ppp(rtk_t *rtk) {
 
         if (rtk->opt.tropopt >= TROPOPT_ESTG) {
             for (j = i + 1; j < i + 3; j++)
-                initx(rtk, 1E-6, VAR_GRA, j);
+                initx(rtk, 1E-6, SQR(rtk->opt.std[7]), j);
         }
     } else {
         rtk->P[i + i * rtk->nx] += SQR(rtk->opt.prn[2]) * fabs(rtk->tt);
@@ -647,7 +647,7 @@ static void udiono_ppp(rtk_t *rtk, const obsd_t *obs, int n, const nav_t *nav) {
             ecef2pos(rtk->sol.rr, pos);
             azel = rtk->ssat[obs[i].sat - 1].azel;
             ion /= ionmapf(pos, azel);
-            initx(rtk, ion, VAR_IONO, j);
+            initx(rtk, ion, SQR(rtk->opt.std[10]), j);
         } else {
             sinel = sin(MAX(rtk->ssat[obs[i].sat - 1].azel[1], 5.0 * D2R));
             rtk->P[j + j * rtk->nx] += SQR(rtk->opt.prn[1] / sinel) * fabs(rtk->tt);
@@ -661,7 +661,7 @@ static void uddcb_ppp(rtk_t *rtk) {
     trace(3, "uddcb_ppp:\n");
 
     if (rtk->x[i] == 0.0) {
-        initx(rtk, 1E-6, VAR_DCB, i);
+        initx(rtk, 1E-6, SQR(rtk->opt.std[8]), i);
     }
 }
 /* temporal update of phase biases -------------------------------------------*/
@@ -744,7 +744,7 @@ static void udbias_ppp(rtk_t *rtk, const obsd_t *obs, int n, const nav_t *nav) {
                 continue;
 
             /* reinitialize phase-bias if detecting cycle slip */
-            initx(rtk, bias[i], VAR_BIAS, IB(sat, f, &rtk->opt));
+            initx(rtk, bias[i], SQR(rtk->opt.std[9]), IB(sat, f, &rtk->opt));
 
             /* reset fix flags */
             for (k = 0; k < MAXSAT; k++)
@@ -988,7 +988,7 @@ static int ppp_res(int post, const obsd_t *obs, int n, const double *rs, const d
             /* variance */
             var[nv] = varerr(obs[i].sat, sys, azel[1 + i * 2], j / 2, j % 2, opt) + vart + SQR(C) * vari + var_rs[i];
             if (sys == SYS_GLO && j % 2 == 1)
-                var[nv] += VAR_GLO_IFB;
+                var[nv] += SQR(rtk->opt.std[11]);
 
             trace(4, "%s sat=%2d %s%d res=%9.4f sig=%9.4f el=%4.1f\n", str, sat, j % 2 ? "P" : "L", j / 2 + 1, v[nv], sqrt(var[nv]),
                   azel[1 + i * 2] * R2D);

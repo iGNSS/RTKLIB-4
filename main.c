@@ -96,9 +96,9 @@ extern void postInit(char *filepath) {
         0,                                     // refpos
         {100.0, 100.0},                        /* eratio[] */
         {100.0, 0.003, 0.003, 0.0, 1.0},       /* err[] */
-        {30.0, 0.03, 0.3},                     /* std[] */
-        {1E-4, 1E-3, 1E-4, 1E-1, 1E-2, 0.0},   /* process-noise std [0]bias,[1]iono
-                                                  [2]trop [3]acch [4]accv [5]pos */
+        {30.0, 0.03, 0.3,10.0,10.0,60.0,60.0,0.01,30.0,60.0,60.0,0.6},/* initial-state std [0]bias,[1]iono [2]trop [3]acc  [4]vel [5] pos [6]clk
+* [7]ZTDG [8]dcb [9]phase bias [10]iono [11] glo_ifb*/
+        {1E-4, 1E-3, 1E-4, 1E-1, 1E-2, 0.0},   /* process-noise [0]bias,[1]iono [2]trop [3]acch [4]accv [5]pos */
         5E-12,                                 /* sclkstab */
         {3.0, 0.9999, 0.25, 0.1, 0.05},        /* thresar */
         0.0,                                   // elmaskar
