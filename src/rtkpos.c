@@ -662,7 +662,7 @@ static void detslp_gf(rtk_t *rtk, const obsd_t *obs, int i, int j, const nav_t *
         g0                           = rtk->ssat[sat - 1].gf[k - 1];
         rtk->ssat[sat - 1].gf[k - 1] = g1;
 
-        if (g0 != 0.0 && fabs(g1 - g0) > rtk->opt.thresslip) {
+        if (g0 != 0.0 && fabs(g1 - g0) > rtk->opt.thresslip[0]) {
             rtk->ssat[sat - 1].slip[0] |= 1;
             rtk->ssat[sat - 1].slip[k] |= 1;
             errmsg(rtk, "slip detected GF jump (sat=%2d L1-L%d GF=%.3f %.3f)\n", sat, k + 1, g0, g1);

@@ -73,7 +73,7 @@
 #define MIN_NSAT_SOL 4   /* min satellite number for solution */
 #define THRES_REJECT 4.0 /* reject threshold of posfit-res (sigma) */
 
-#define THRES_MW_JUMP 10.0
+//#define THRES_MW_JUMP 10.0
 
 //#define VAR_POS SQR(60.0)    /* init variance receiver position (m^2) */
 //#define VAR_VEL SQR(10.0)    /* init variance of receiver vel ((m/s)^2) */
@@ -446,7 +446,7 @@ static void detslp_gf(rtk_t *rtk, const obsd_t *obs, int n, const nav_t *nav) {
 
         trace(4, "detslip_gf: sat=%2d gf0=%8.3f gf1=%8.3f\n", obs[i].sat, g0, g1);
 
-        if (g0 != 0.0 && fabs(g1 - g0) > rtk->opt.thresslip) {
+        if (g0 != 0.0 && fabs(g1 - g0) > rtk->opt.thresslip[0]) {
             trace(3, "detslip_gf: slip detected sat=%2d gf=%8.3f->%8.3f\n", obs[i].sat, g0, g1);
 
             for (j = 0; j < rtk->opt.nf; j++)
@@ -470,7 +470,7 @@ static void detslp_mw(rtk_t *rtk, const obsd_t *obs, int n, const nav_t *nav) {
 
         trace(4, "detslip_mw: sat=%2d mw0=%8.3f mw1=%8.3f\n", obs[i].sat, w0, w1);
 
-        if (w0 != 0.0 && fabs(w1 - w0) > THRES_MW_JUMP) {
+        if (w0 != 0.0 && fabs(w1 - w0) > rtk->opt.thresslip[1]) {
             trace(3, "detslip_mw: slip detected sat=%2d mw=%8.3f->%8.3f\n", obs[i].sat, w0, w1);
 
             for (j = 0; j < rtk->opt.nf; j++)

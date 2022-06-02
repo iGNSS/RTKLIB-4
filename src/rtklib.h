@@ -1073,7 +1073,7 @@ typedef struct {             /* processing options type */
     double thresar[8];       /* AR validation threshold */
     double elmaskar;         /* elevation mask of AR for rising satellite (deg) */
     double elmaskhold;       /* elevation mask to hold ambiguity (deg) */
-    double thresslip;        /* slip threshold of geometry-free phase (m) */
+    double thresslip[2];        /* slip threshold of geometry-free phase (m) */
     double maxtdiff;         /* max difference of time (sec) */
     double maxinno;          /* reject threshold of innovation (m) */
     double maxgdop;          /* reject threshold of gdop */

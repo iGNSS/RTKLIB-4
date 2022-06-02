@@ -103,17 +103,10 @@ extern void postInit(char *filepath) {
         {3.0, 0.9999, 0.25, 0.1, 0.05},        /* thresar */
         0.0,                                   // elmaskar
         0.0,                                   // almaskhold
-        0.05,                                  // thresslip
+        {0.05,10},                                  // thresslip gf mw
         30.0,                                  // maxtdif
         30.0,                                  // maxinno
         30.0,                                  //,maxgdop
-        {0},                                   // baseline
-        {0},                                   // ru
-        {0},                                   // rb
-        {"*", ""},                             /* anttype */
-        {{0}},                                 // antdel
-        {{0}},                                 // pcv
-        {0},                                   // exsats
     };
 
     // 输出参数

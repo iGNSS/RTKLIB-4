@@ -229,7 +229,7 @@ const prcopt_t prcopt_default        = {
     {3.0, 0.9999, 0.25, 0.1, 0.05},      /* thresar */
     0.0,
     0.0,
-    0.05, /* elmaskar,almaskhold,thresslip */
+    {0.05,10.0}, /* elmaskar,almaskhold,thresslip */
     30.0,
     30.0,
     30.0, /* maxtdif,maxinno,maxgdop */
