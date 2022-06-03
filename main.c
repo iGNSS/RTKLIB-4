@@ -157,10 +157,7 @@ extern void postInit(char *filepath) {
         n += 1;
     }
 
-    rov  = (char *) "";
-    base = (char *) "";
-
-    stat = postpos(ts, te, 0, 0, &prcopt, &solopt, &filopt, infile, n, outfile, rov, base);
+    stat = postpos(ts, te, 0, 0, &prcopt, &solopt, &filopt, infile, n, outfile, "", "");
     printf("%s has done.\n", proname);
 }
 
