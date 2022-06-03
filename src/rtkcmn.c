@@ -195,7 +195,7 @@ const double chisqr[100]             = {/* chi-sqr(n) (alpha=0.001) */
                             101,  102,  103,  104,  105,  107,  108,  109,  110,  112,  113,  114,  115,  116,  118,  119,  120,  122,  123,  125,
                             126,  127,  128,  129,  131,  132,  133,  134,  135,  137,  138,  139,  140,  142,  143,  144,  145,  147,  148,  149};
 const prcopt_t prcopt_default        = {
-    /* defaults processing options */
+           /* defaults processing options */
     PMODE_SINGLE,
     0,
     2,
@@ -229,7 +229,7 @@ const prcopt_t prcopt_default        = {
     {3.0, 0.9999, 0.25, 0.1, 0.05},      /* thresar */
     0.0,
     0.0,
-    {0.05,10.0}, /* elmaskar,almaskhold,thresslip */
+    {0.05, 10.0}, /* elmaskar,almaskhold,thresslip */
     30.0,
     30.0,
     30.0, /* maxtdif,maxinno,maxgdop */
@@ -270,7 +270,7 @@ const char *formatstrs[32] = {                  /* stream format strings */
                               "NMEA 0183",      /* 17 */
                               NULL};
 static char *obscodes[]    = {
-    /* observation code strings */
+       /* observation code strings */
 
     "",   "1C", "1P", "1W", "1Y", "1M", "1N", "1S", "1L", "1E", /*  0- 9 */
     "1A", "1B", "1X", "1Z", "2C", "2D", "2S", "2L", "2X", "2P", /* 10-19 */
@@ -2862,7 +2862,7 @@ extern int readblq(const char *file, const char *sta, double *odisp) {
             continue;
         for (p = name; (*p = (char) toupper((int) (*p))); p++)
             ;
-        if (strncmp(name, staname,4))
+        if (strncmp(name, staname, 4))
             continue;
 
         /* read blq record */

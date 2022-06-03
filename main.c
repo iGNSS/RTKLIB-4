@@ -36,77 +36,66 @@ static void read_filedir(char *filePath, char file[FILENUM][FILESIZE]) {
             strcat(temp, entry->d_name);
             strcpy(file[i], temp);
             i++;
-            // printf("filename%d = %s\n", i, entry->d_name);
         }
     }
-}
-
-/**
- * append string at end
- * @param str
- * @param aim
- * @param add
- */
-static void addchar(const char *str, char *aim, char *add) {
-    int count = strlen(str);
-    char temp[FILESIZE];
-    strcpy(temp, str);
-
-    *(temp + count - 1) = '\0';
-    strcat(temp, add);
-    strcpy(aim, temp);
 }
 
 extern void postInit(char *filepath) {
     gtime_t ts = {0}, te = {0};
     double ti = 0.0, tu = 0.0;
     int i, n            = 0, stat;
-    char *rov, *base, *p, *q, *r;
     char file[FILENUM][FILESIZE] = {""};
-    char *infile[FILENUM], outfile[FILESIZE];
-    char proname[FILESIZE];
+    char *infile[FILENUM]={}, outfile[FILESIZE]={};
+    // char proname[FILESIZE];
 
     read_filedir(filepath, file);
     // 处理参数
     prcopt_t prcopt = {
-        PMODE_PPP_KINEMA,                      // mode
-        0,                                     // soltype: 0:forward,1:backward,2:combined
-        2,                                     // nf
-        SYS_GPS | SYS_GAL | SYS_CMP | SYS_QZS, // navsys
-        10.0 * D2R,                            // elmin
-        {{0, 0}},                              /* snrmask */
-        EPHOPT_PREC,                           // sateph
-        1,                                     // modear
-        1,                                     // glomodear
-        1,                                     // bdsmodear
-        5,                                     // maxout
-        0,                                     // minlock
-        10,                                    // minfix
-        1,                                     // armaxiter
-        IONOOPT_IFLC,                          // est ion
-        TROPOPT_ESTG,                          // est trop
-        0,                                     // dynamics
-        2,                                     // tidecorr
-        1,                                     // niter
-        0,                                     // codesmooth
-        0,                                     // intpref
-        0,                                     // sbascorr
-        0,                                     // sbassatsel
-        0,                                     // rovpos
-        0,                                     // refpos
-        {100.0, 100.0},                        /* eratio[] */
-        {100.0, 0.003, 0.003, 0.0, 1.0},       /* err[] */
-        {30.0, 0.03, 0.3,10.0,10.0,60.0,60.0,0.01,30.0,60.0,60.0,0.6},/* initial-state std [0]bias,[1]iono [2]trop [3]acc  [4]vel [5] pos [6]clk
-* [7]ZTDG [8]dcb [9]phase bias [10]iono [11] glo_ifb*/
-        {1E-4, 1E-3, 1E-4, 1E-1, 1E-2, 0.0},   /* process-noise [0]bias,[1]iono [2]trop [3]acch [4]accv [5]pos */
-        5E-12,                                 /* sclkstab */
-        {3.0, 0.9999, 0.25, 0.1, 0.05},        /* thresar */
-        0.0,                                   // elmaskar
-        0.0,                                   // almaskhold
-        {0.05,10},                                  // thresslip gf mw
-        30.0,                                  // maxtdif
-        30.0,                                  // maxinno
-        30.0,                                  //,maxgdop
+        PMODE_PPP_KINEMA,                                                       // mode
+        0,                                                                      // soltype: 0:forward,1:backward,2:combined
+        2,                                                                      // nf
+        SYS_GPS | SYS_GAL | SYS_CMP | SYS_QZS,                                  // navsys
+        10.0 * D2R,                                                             // elmin
+        {{0, 0}},                                                               /* snrmask */
+        EPHOPT_PREC,                                                            // sateph
+        1,                                                                      // modear
+        1,                                                                      // glomodear
+        1,                                                                      // bdsmodear
+        5,                                                                      // maxout
+        0,                                                                      // minlock
+        10,                                                                     // minfix
+        1,                                                                      // armaxiter
+        IONOOPT_IFLC,                                                           // est ion
+        TROPOPT_ESTG,                                                           // est trop
+        0,                                                                      // dynamics
+        2,                                                                      // tidecorr
+        1,                                                                      // niter
+        0,                                                                      // codesmooth
+        0,                                                                      // intpref
+        0,                                                                      // sbascorr
+        0,                                                                      // sbassatsel
+        0,                                                                      // rovpos
+        0,                                                                      // refpos
+        {100.0, 100.0},                                                         /* eratio[] */
+        {100.0, 0.003, 0.003, 0.0, 1.0},                                        /* err[] */
+        {30.0, 0.03, 0.3, 10.0, 10.0, 60.0, 60.0, 0.01, 30.0, 60.0, 60.0, 0.6}, /* initial-state std [0]bias,[1]iono [2]trop [3]acc  [4]vel [5] pos
+                                                                                 * [6]clk [7]ZTDG [8]dcb [9]phase bias [10]iono [11] glo_ifb*/
+        {1E-4, 1E-3, 1E-4, 1E-1, 1E-2, 0.0},                                    /* process-noise [0]bias,[1]iono [2]trop [3]acch [4]accv [5]pos */
+        5E-12,                                                                  /* sclkstab */
+        {3.0, 0.9999, 0.25, 0.1, 0.05},                                         /* thresar */
+        0.0,                                                                    // elmaskar
+        0.0,                                                                    // almaskhold
+        {0.05, 10},                                                             // thresslip gf mw
+        30.0,                                                                   // maxtdif
+        30.0,                                                                   // maxinno
+        30.0,                                                                   //,maxgdop
+        {0},                                                                    // baseline
+        {0},                                                                    // ru
+        {0},                                                                    // rb
+        {"*", ""},                                                              /* anttype */
+        {{0}},                                                                  // antdel
+        {{0}},                                                                  // pcv
+        {0},                                                                    // exsats
     };
 
     // 输出参数
@@ -150,15 +139,16 @@ extern void postInit(char *filepath) {
             sprintf(filopt.iono, "%s", file[i]); /* ionex file */
             continue;
         } else if (strcasecmp(substr2, "o") == 0 || strcmp(substr2, "O") == 0) {
-            addchar(file[i], outfile, "pos");
-            strcpy(proname, file[i]);
+            strcpy(outfile,file[i]);
+            outfile[strlen(outfile)-1]='\0';
+            strcat(outfile,"pos");
         }
         infile[n] = file[i];
         n += 1;
     }
 
     stat = postpos(ts, te, 0, 0, &prcopt, &solopt, &filopt, infile, n, outfile, "", "");
-    printf("%s has done.\n", proname);
+    // printf("%s has done.\n", proname);
 }
 
 int main(int argc, char **argv) {
