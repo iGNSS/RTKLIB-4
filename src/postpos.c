@@ -84,7 +84,8 @@ static int checkbrk(const char *format, ...) {
     va_list arg;
     char buff[1024], *p = buff;
     if (!*format)
-        return showmsg("");
+        return 0;
+        // return showmsg("");
     va_start(arg, format);
     p += vsprintf(p, format, arg);
     va_end(arg);
@@ -905,7 +906,8 @@ static void setpcv(gtime_t time, prcopt_t *popt, nav_t *nav, const pcvs_t *pcvs,
     }
     for (i = 0; i < (mode ? 2 : 1); i++) {
         popt->pcvr[i] = pcv0;
-        if (!strcmp(popt->anttype[i], "*")) { /* set by station parameters */
+        // if (!strcmp(popt->anttype[i], "*")) { /* set by station parameters */
+        if (!popt->anttype[i][0]) { /* set by station parameters */
             strcpy(popt->anttype[i], sta[i].antdes);
             if (sta[i].deltype == 1) { /* xyz */
                 if (norm(sta[i].pos, 3) > 0.0) {

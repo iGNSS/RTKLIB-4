@@ -3,7 +3,8 @@ project(RTKLIB C)
 
 set(CMAKE_C_STANDARD 99)
 
-include_directories("src")
+include_directories("src" "dependence")
+
 link_libraries(m pthread)
 aux_source_directory("src" rtklib_srcs)
 aux_source_directory("src/rcv" rtklib_rcv_srcs)
