@@ -1014,6 +1014,10 @@ static int execses(gtime_t ts, gtime_t te, double ti, const prcopt_t *popt, cons
         reppath(fopt->dcb, path, ts, "", "");
         readdcb(path, &navs, stas);
     }
+    /* read bia parameters */
+    if(*fopt->bia){
+        
+    }
     /* set antenna paramters */
     if (popt_.mode != PMODE_SINGLE) {
         setpcv(obss.n > 0 ? obss.data[0].time : timeget(), &popt_, &navs, &pcvss, &pcvsr, stas);
